@@ -11,8 +11,8 @@ def check_horizontals(player):
     for y in range(6):
         for x in range(4):
             if all(z == player for z in board[y][x: (x + 4)]):
-                return False
-    return True
+                return True
+    return False
 
 
 def check_verticals(player):
@@ -20,8 +20,8 @@ def check_verticals(player):
         for x in range(3):
             k = [board[x][y], board[x + 1][y], board[x + 2][y], board[x + 3][y]]
             if all(z == player for z in k):
-                return False
-    return True
+                return True
+    return False
 
 def check_diagonals(player):
     reverse_board = board.copy()
@@ -31,7 +31,7 @@ def check_diagonals(player):
                 for x in range(4):
                     diagonals = [board[i][x], board[i+1][x+1],board[i+2][x+2], board[i+3][x+3]]
                     if all(z == player for z in diagonals):
-                        return False
+                        return True
 
         elif y == 1:
             for i in range(len(reverse_board)):
@@ -40,12 +40,12 @@ def check_diagonals(player):
                 for x in range(4):
                     diagonals = [reverse_board[i][x], reverse_board[i+1][x+1],reverse_board[i+2][x+2], reverse_board[i+3][x+3]]
                     if all(z == player for z in diagonals):
-                        return False
+                        return True
 
-    return True
+    return False
 
 def check_win(player):
-    return check_horizontals(player) and check_verticals(player) and check_diagonals(player)
+    return check_horizontals(player) or check_verticals(player) or check_diagonals(player)
 
 
 def insert_piece(player, y):
@@ -60,18 +60,18 @@ def insert_piece(player, y):
         if not done and (board[x, y] != 1 and board[x, y] != 2):
             if player == 1:
                 board[x][y] = 1
-                condition = check_win(player)
-                if condition:
+                win = check_win(player)
+                if not win:
                     player = 2
             else:
                 board[x][y] = 2
-                condition = check_win(player)
-                if condition:
+                win = check_win(player)
+                if not win:
                     player = 1
 
             pieces_in_board += 1
             #print(pieces_in_board)
-            return condition, player
+            return not win, player
 
 
 def main(player, game_on):
