@@ -1,4 +1,5 @@
 import numpy as np
+import datetime
 
 # Set starting conditions
 board = np.zeros((6, 7))
@@ -80,7 +81,6 @@ def main(player, game_on):
         user_input = eval(input("Player " + str(player) + "'s Turn. Enter a number from 1 to 7.\n"))
         while type(user_input) != int or user_input - 1 > 6 or user_input - 1 < 0:
             user_input = eval(input("INVALID INPUT: Enter a integer between 1 and 7\n"))
-
         update_status = insert_piece(player, user_input - 1)
         player = update_status[1]
         game_on = update_status[0]
@@ -89,5 +89,20 @@ def main(player, game_on):
         print("It's a tie!")
     else:
         print("Player " + str(player) + " Wins!")
+        text_file_message = "Winner: Player " +  str(player)
+    user_input = str(input("Would you like to save the results? (Y/N)\n")).lower()
+    while str(user_input) not in  ['y','n']:
+        user_input = str(input("Invalid Respons. Please enter Y or N\n"))
+    if user_input == 'y':
+        player_one_name = str(input("Enter Player 1's Name: "))
+        player_two_name = str(input("Enter Player 2's Name: "))
+        f = open('Match Results.txt', 'a')
+        if player == 0:
+            f.write('\n{} Tie Game Between {} and {}'.format(str(datetime.datetime.now())[:16], player_one_name, player_two_name))
+        elif player == 1:
+            f.write('\n{} {} | Loser: {}'.format(str(datetime.datetime.now())[:16], text_file_message.replace("Player 1", "{}".format(player_one_name)), player_two_name))
+        else:
+            f.write('\n{} {} | Loser: {}'.format(str(datetime.datetime.now())[:16], text_file_message.replace("Player 2", "{}".format(player_two_name)), player_one_name))
+        f.close()
 
 main(player, game_on)
