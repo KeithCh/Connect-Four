@@ -1,6 +1,7 @@
 import numpy as np
 import datetime
 
+
 # Set starting conditions
 board = np.zeros((6, 7))
 game_on = True
@@ -96,13 +97,19 @@ def main(player, game_on):
     if user_input == 'y':
         player_one_name = str(input("Enter Player 1's Name: "))
         player_two_name = str(input("Enter Player 2's Name: "))
+        f = open('Match Results.txt', 'a').close()
+        f = open('Match Results.txt', 'r+')
+        contents = f.readlines()
+        open("Match Results.txt", "w").close()
         f = open('Match Results.txt', 'a')
         if player == 0:
-            f.write('\n{} Tie Game Between {} and {}'.format(str(datetime.datetime.now())[:16], player_one_name, player_two_name))
+            text_file_message = '\n{} Tie Game Between {} and {}'.format(str(datetime.datetime.now())[:16], player_one_name, player_two_name)
         elif player == 1:
-            f.write('\n{} {} | Loser: {}'.format(str(datetime.datetime.now())[:16], text_file_message.replace("Player 1", "{}".format(player_one_name)), player_two_name))
+            text_file_message = '\n{} {} | Loser: {}'.format(str(datetime.datetime.now())[:16], text_file_message.replace("Player 1", "{}".format(player_one_name)), player_two_name)
         else:
-            f.write('\n{} {} | Loser: {}'.format(str(datetime.datetime.now())[:16], text_file_message.replace("Player 2", "{}".format(player_two_name)), player_one_name))
+            text_file_message = '\n{} {} | Loser: {}'.format(str(datetime.datetime.now())[:16], text_file_message.replace("Player 2", "{}".format(player_two_name)), player_one_name)
+        contents.insert(0,text_file_message)
+        f.writelines(contents)
         f.close()
 
 main(player, game_on)
