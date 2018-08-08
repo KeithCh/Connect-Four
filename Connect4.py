@@ -72,7 +72,6 @@ def insert_piece(player, y):
                     player = 1
 
             pieces_in_board += 1
-            #print(pieces_in_board)
             return not win, player
 
 
@@ -108,16 +107,18 @@ def main(player, game_on):
         player_one_name = str(input("Enter Player 1's Name: "))
         player_two_name = str(input("Enter Player 2's Name: "))
         f = open('Match Results.txt', 'a+')
-        # f = open('Match Results.txt', 'r+')
         contents = f.readlines()
         open("Match Results.txt", "w").close()
         f = open('Match Results.txt', 'a')
         if player == 0:
-            text_file_message = '\n{} Tie Game Between {} and {}'.format(str(datetime.datetime.now())[:16], player_one_name, player_two_name)
+            text_file_message = '\n{} Tie Game Between {} and {}'.\
+                format(str(datetime.datetime.now())[:16], player_one_name, player_two_name)
         elif player == 1:
-            text_file_message = '\n{} {} | Loser: {}'.format(str(datetime.datetime.now())[:16], text_file_message.replace("Player 1", "{}".format(player_one_name)), player_two_name)
+            text_file_message = '\n{} {} | Loser: {}'.\
+                format(str(datetime.datetime.now())[:16], text_file_message.replace("Player 1", "{}".format(player_one_name)), player_two_name)
         else:
-            text_file_message = '\n{} {} | Loser: {}'.format(str(datetime.datetime.now())[:16], text_file_message.replace("Player 2", "{}".format(player_two_name)), player_one_name)
+            text_file_message = '\n{} {} | Loser: {}'.\
+                format(str(datetime.datetime.now())[:16], text_file_message.replace("Player 2", "{}".format(player_two_name)), player_one_name)
         contents.insert(0,text_file_message)
         f.writelines(contents)
         f.close()
