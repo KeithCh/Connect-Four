@@ -79,9 +79,19 @@ def insert_piece(player, y):
 def main(player, game_on):
     while game_on:
         print(board,end="\n")
-        user_input = eval(input("Player " + str(player) + "'s Turn. Enter a number from 1 to 7.\n"))
-        while type(user_input) != int or user_input - 1 > 6 or user_input - 1 < 0:
-            user_input = eval(input("INVALID INPUT: Enter a integer between 1 and 7\n"))
+        valid_input = False
+        while not valid_input:
+            try:
+                user_input = eval(input("Player " + str(player) + "'s Turn. Enter a number from 1 to 7.\n"))
+                if user_input - 1 > 6 or user_input - 1 < 0:
+                    print(board, end="\n")
+                    print("Number out of Range")
+                else:
+                    valid_input = True
+            except:
+                print(board, end="\n")
+                print("Invalid Character Entered")
+
         update_status = insert_piece(player, user_input - 1)
         player = update_status[1]
         game_on = update_status[0]
@@ -97,8 +107,8 @@ def main(player, game_on):
     if user_input == 'y':
         player_one_name = str(input("Enter Player 1's Name: "))
         player_two_name = str(input("Enter Player 2's Name: "))
-        f = open('Match Results.txt', 'a').close()
-        f = open('Match Results.txt', 'r+')
+        f = open('Match Results.txt', 'a+')
+        # f = open('Match Results.txt', 'r+')
         contents = f.readlines()
         open("Match Results.txt", "w").close()
         f = open('Match Results.txt', 'a')
