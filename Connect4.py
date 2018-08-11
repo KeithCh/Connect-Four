@@ -75,7 +75,7 @@ def insert_piece(player, y):
             return not win, player
 
 
-def main(player, game_on):
+def game(player, game_on):
     while game_on:
         print(board,end="\n")
         valid_input = False
@@ -100,9 +100,9 @@ def main(player, game_on):
     else:
         print("Player " + str(player) + " Wins!")
         text_file_message = "Winner: Player " +  str(player)
-    user_input = str(input("Would you like to save the results? (Y/N)\n")).lower()
+    user_input = input("Would you like to save the results? (Y/N)\n").lower()
     while str(user_input) not in  ['y','n']:
-        user_input = str(input("Invalid Respons. Please enter Y or N\n"))
+        user_input = input("Invalid Respons. Please enter Y or N\n")
     if user_input == 'y':
         player_one_name = str(input("Enter Player 1's Name: "))
         player_two_name = str(input("Enter Player 2's Name: "))
@@ -123,4 +123,14 @@ def main(player, game_on):
         f.writelines(contents)
         f.close()
 
-main(player, game_on)
+while __name__ == '__main__':
+    game(player, game_on)
+    user_input = input("New Game? (Y/N): ").lower()
+    while user_input not in  ['y','n']:
+        user_input = str(input("Invalid Respons. Please enter Y or N: \n"))
+    if user_input == 'n':
+        break
+    board = np.zeros((6, 7))
+    game_on = True
+    player = 1
+    pieces_in_board = 0
