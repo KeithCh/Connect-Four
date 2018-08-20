@@ -127,7 +127,7 @@ while __name__ == '__main__':
     game(player, game_on)
     user_input = input("New Game? (Y/N): ").lower()
     while user_input not in  ['y','n']:
-        user_input = str(input("Invalid Respons. Please enter Y or N: \n"))
+        user_input = str(input("Invalid Response. Please enter Y or N: \n"))
     if user_input == 'n':
         break
     board = np.zeros((6, 7))
