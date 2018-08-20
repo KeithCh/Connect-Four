@@ -1,2 +1,2 @@
 # Connect-Four
-I/O window-based Connect Four
+Connect Four
