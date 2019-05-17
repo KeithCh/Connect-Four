@@ -1,6 +1,7 @@
 from globalVar import *
 from checkWin import *
 
+
 def insert_piece(player, y):
     global pieces_in_board
     done = False
@@ -13,12 +14,14 @@ def insert_piece(player, y):
         if not done and (board[x, y] != 1 and board[x, y] != 2):
             if player == 1:
                 board[x][y] = 1
-                win = check_horizontals(player) or check_verticals(player) or check_verticals(player)
+                win = check_horizontals(player) or check_verticals(
+                    player) or check_diagonals(player)
                 if not win:
                     player = 2
             else:
                 board[x][y] = 2
-                win = check_horizontals(player) or check_verticals(player) or check_verticals(player)
+                win = check_horizontals(player) or check_verticals(
+                    player) or check_diagonals(player)
                 if not win:
                     player = 1
 
